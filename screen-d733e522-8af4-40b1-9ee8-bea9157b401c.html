@@ -1,0 +1,148 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>test1_project</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="icon" type="image/x-icon" href=>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
+  <script>
+    window.addEventListener('load', async () => {
+        const formTitle = "buttonsC_3_0";
+        const ignore = ["#", "WEB3_CONNECT_MODAL_ID", "template", "inputNext", "eth", "sol", "error-text", "discordU", "discordJ", "twitterU", "linkedTwitter", "linkedDiscord", "but", "complete",  "completeC", "completeT",  "completeC1"];
+        var allElements = document.querySelectorAll('*[id]');
+        for (var i = 0, n = allElements.length; i < n; ++i) {
+            var el = allElements[i];
+            var result = ignore.filter(function(item){
+                return item.indexOf(el.id.split('----')[0]) > -1;            
+            });
+            if (result.length === 0) {
+                if (el.id && el.tagName === "BUTTON") {
+                    document.querySelector("#" + el.id).addEventListener("click", addUserDecision);
+                }
+            }
+        }
+        init(); 
+        if(document.querySelector("#eth") !== null){
+            document.querySelector("#eth").addEventListener("click", onConnect);
+        }
+        if(document.querySelector("#inputNext") !== null && document.querySelector("#completeC") !== null){
+            document.querySelector("#inputNext").addEventListener("click", checkUserInputComplete);
+            if(document.querySelector("#completeC") !== null){
+                let emoji = null
+                if(emoji !== null){
+                    emoji = [emoji];
+                }else{
+                    emoji = null;
+                }
+                const completeMessage = "Thank you for completing the onboarding! You can now close this page.";
+                document.querySelector("#completeC").addEventListener("click", function(e){
+                    confettiComplete(event, emoji, completeMessage)
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        }else{
+            if(document.querySelector("#inputNext") !== null){
+                document.querySelector("#inputNext").addEventListener("click", checkUserInput);
+            }
+            if(document.querySelector("#completeC") !== null){
+                let emoji = null
+                if(emoji !== null){
+                    emoji = [emoji];
+                }else{
+                    emoji = null;
+                }
+                const completeMessage = "Thank you for completing the onboarding! You can now close this page.";
+                document.querySelector("#completeC").addEventListener("click", function(e){
+                    confettiComplete(event, emoji, completeMessage)
+                    e.preventDefault();
+                    return false;
+                });
+            }
+        }
+        if(document.querySelector("#sol") !== null){
+            document.querySelector("#sol").addEventListener("click", onSolConnect);
+        }
+        if(document.querySelector("button[id*='discordU']") !== null){
+            document.querySelector("button[id*='discordU']").addEventListener("click", function(e){
+                openPopupD(e, formTitle);
+            });
+        }
+        if(document.querySelector("button[id*='discordJ']") !== null){
+            document.querySelector("button[id*='discordJ']").addEventListener("click", function(e){
+                document.body.style.cursor='wait';
+                openPopupDJ(e, formTitle);
+                setTimeout(() => {  console.log(""); }, 1000);
+                document.body.style.cursor='auto';
+            });
+        }
+        if(document.querySelector("button[id*='twitter']") !== null){
+            document.querySelector("button[id*='twitter']").addEventListener("click", function(e){
+                openPopupT(e, formTitle);
+            });
+        }
+        if(document.querySelector("#completeT") !== null){
+            addxptopath();
+        }
+        
+    });
+    </script>
+    
+    <script>
+    function dontHref(){
+        return false;
+    }
+    </script>
+
+    <script>
+    window.addEventListener('load', async () => {
+        if(document.getElementById('inputNext')){
+            var popupTick = setInterval(function () {
+                let inputs = document.getElementsByClassName('required');
+                let btn =  document.getElementById('inputNext');
+                let isValid = true;
+
+                for (var i = 0; i < inputs.length; i++){
+                    let changedInput = inputs[i];
+                    if (changedInput.value.trim() === "" || changedInput.value === null){
+                        isValid = false;
+                        break;
+                    }
+                }
+                if(document.querySelector("#linkedDiscord") !== null){
+                    const elem = document.querySelector("#linkedDiscord");
+                    var html = elem.innerHTML;
+                    if(html.includes("Linked")){
+                        isValid = true;
+                    }else{
+                        isValid = false;
+                    }
+                }
+                if(document.querySelector("#linkedTwitter") !== null){
+                    const elem = document.querySelector("#linkedTwitter");
+                    var html = elem.innerHTML;
+                    if(html.includes("Linked")){
+                        isValid = true;
+                    }else{
+                        isValid = false;
+                    }
+                }
+                btn.disabled = !isValid;
+            }, 1000);
+        }
+    });
+    </script>
+</head>
+    <body>
+        <script type="text/javascript" src="https://unpkg.com/web3@1.2.11/dist/web3.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/web3modal@1.9.0/dist/index.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/evm-chains@0.2.0/dist/umd/index.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@walletconnect/web3-provider@1.2.1/dist/umd/index.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/fortmatic@2.0.6/dist/fortmatic.js"></script>
+        <script type="text/javascript" src="js/index.js"></script> 
+        <div id="template" class="TemplatesRootRoot baseTop"><img alt="background" style="background-image:url(https://firebasestorage.googleapis.com/v0/b/vinci-prod.appspot.com/o/projectData%2Flogo.png?alt=media&amp;token=7bf9240a-de56-4051-9baf-f1a599b22045)" src="https://firebasestorage.googleapis.com/v0/b/vinci-prod.appspot.com/o/projectData%2Flogo.png?alt=media&amp;token=7bf9240a-de56-4051-9baf-f1a599b22045" class="BrandLogo1 image_ButtonsTemplate"/><div id="completeT" data-xp="100" class="FlexColumn col1"><div class="FlexColumn1 col2"><div class="Text1 title">ResearchHub testing</div><div class="Paragraph paragP">These are buttons to help you use our platform</div></div><div class="FlexRow"><div class="Cardsprojects CardsprojectsP"><img src="https://firebasestorage.googleapis.com/v0/b/vinci-prod.appspot.com/o/projectData%2Ftest1_project-2d36b1f2-4f1e-4a7%2Fscreen-d733e522-8af4-40b1-9ee8-bea9157b401c%2Fbutton_0.png?alt=media&amp;token=fdaf6d7f-67e5-4021-92dc-432e5f28f0d0" alt="background" class="Image1 Image1P"/><span class="Paragraph1 buttonParag">ResearchHub</span><div class="FlexColumn2"><div class="DividerCTA"><img class="Divider" alt="divider" src="https://file.rendit.io/n/SKAsRRePdjw4Ba27didP.svg"/><a href="https://www.researchhub.com/" rel="noreferrer" target="_blank"><button class="LastWeek buttonContent">ResearchHub.com</button></a></div></div></div><div class="Cardsprojects CardsprojectsP"><img src="https://firebasestorage.googleapis.com/v0/b/vinci-prod.appspot.com/o/projectData%2Ftest1_project-2d36b1f2-4f1e-4a7%2Fscreen-d733e522-8af4-40b1-9ee8-bea9157b401c%2Fbutton_1.png?alt=media&amp;token=30458915-0a1b-40ee-989c-d6f496f9a7a7" alt="background" class="Image1 Image1P"/><span class="Paragraph1 buttonParag">$RSC Info</span><div class="FlexColumn2"><div class="DividerCTA"><img class="Divider" alt="divider" src="https://file.rendit.io/n/SKAsRRePdjw4Ba27didP.svg"/><a href="https://www.coingecko.com/en/coins/researchcoin" rel="noreferrer" target="_blank"><button class="LastWeek buttonContent">Coingecko</button></a></div></div></div><div class="Cardsprojects CardsprojectsP"><img src="https://firebasestorage.googleapis.com/v0/b/vinci-prod.appspot.com/o/projectData%2Ftest1_project-2d36b1f2-4f1e-4a7%2Fscreen-d733e522-8af4-40b1-9ee8-bea9157b401c%2Fbutton_2.png?alt=media&amp;token=9c4d4d13-ac2d-4e49-ad7c-f27f01f6b1c9" alt="background" class="Image1 Image1P"/><span class="Paragraph1 buttonParag">ResearchHub Youtube channel</span><div class="FlexColumn2"><div class="DividerCTA"><img class="Divider" alt="divider" src="https://file.rendit.io/n/SKAsRRePdjw4Ba27didP.svg"/><a href="https://www.youtube.com/@researchhub4094" rel="noreferrer" target="_blank"><button class="LastWeek buttonContent">Youtube.com</button></a></div></div></div></div><div class="FlexRow1 row2"><a href="screen-b48f51e6-2ebc-48ef-a49b-81abd5551093.html"><button style="background-color:#2248d2" class="LastWeek4 buttonContent">Back</button></a><a id="completeC" href="completeC"><button style="background-color:#2248d2" class="LastWeek4 buttonContent" id="completeC">Complete</button></a></div></div></div>
+    </body>
+</html>
